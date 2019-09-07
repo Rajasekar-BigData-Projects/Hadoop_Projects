@@ -1,0 +1,27 @@
+create database simplilearn;
+use simplilearn;
+
+//Create table movie
+create table movies( id int, movie_name string, release_year int, rating int, time_duration int)
+row format delimited fields terminated by ',';
+
+// Load data
+LOAD DATA LOCAL INPATH '/home/training/movie.txt' INTO TABLE movies; 
+
+// total number of movies
+select count(*) from movies;
+
+//finding maximum rating of movie
+select max(rating) from movies;
+
+// count number of movies having maximum rating
+select count(*) from movies where rating = 4;
+
+// count number of movies between rating 1 and 2
+select distinct movie_name from movies where rating between 1 and 2;
+
+// Find the list of years and number of movies released each year.
+select release_year, count(distinct movie_name) from movies group by release_year;
+
+// Find number of movies with duration of 2 hours
+select count(movie_name) from movies where time_duration = (2*60*60);
